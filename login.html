@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gan Ring Poc-Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container vh-100 d-flex flex-column justify-content-between">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-lg-6">
+          <div class="form-container">
+            <form
+              action="#"
+              method="POST"
+              id="login-form"
+              class="needs-validation"
+              novalidate
+            >
+              <div class="mb-3 text-base">
+                <label for="code" class="form-label">企業コード</label>
+                <input
+                  type="text"
+                  class="form-control custom-input"
+                  id="code"
+                  name="code"
+                  required
+                />
+                <div class="invalid-feedback">企業コード 入力してください</div>
+              </div>
+              <div class="mb-3 text-base">
+                <label for="user-id" class="form-label">ユーザーID</label>
+                <input
+                  type="text"
+                  class="form-control custom-input"
+                  id="user-id"
+                  name="user-id"
+                  required
+                />
+                <div class="invalid-feedback">ユーザーID 入力してください</div>
+              </div>
+              <div class="mb-3 text-base">
+                <label for="password" class="form-label">パスワード</label>
+                <input
+                  type="password"
+                  class="form-control custom-input"
+                  id="password"
+                  name="password"
+                  required
+                />
+                <div class="invalid-feedback">パスワード 入力してください</div>
+              </div>
+              <div class="mb-5 text-end text-base">
+                <a href="#" class="custom-link">パスワードを忘れた方はこちら</a>
+              </div>
+              <div class="text-center">
+                <button
+                  type="submit"
+                  class="btn gradient-button w-100 text-base"
+                >
+                  ログイン
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-6">
+          <div
+            class="form-container d-flex flex-md-row justify-content-center justify-content-sm-end gap-5 align-items-center text-base"
+          >
+            <a href="#" class="custom-link">利用規約</a>
+            <a href="#" class="custom-link">プライバシーポリシー</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

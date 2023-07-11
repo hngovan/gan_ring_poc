@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gan Ring Poc-Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/1a493a7585.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Top section - DESIGN or UPLOAD or MENU -->
+    <div class="container-xxl container-top">
+      <div class="row h-100">
+        <div class="col-lg-12">
+          <div class="tab-content tab-content-top">
+            <!-- DESIGN tab content -->
+            <div
+              id="design-tab-content"
+              class="tab-pane fade show active h-100"
+            >
+              <div class="image-grid row">
+                <!-- Image grid items -->
+              </div>
+            </div>
+
+            <!-- UPLOAD tab content -->
+            <div id="upload-tab-content" class="tab-pane fade">
+              <div class="row h-100">
+                <div class="col-lg-12 px-0 upload-box-bg">
+                  <div class="upload-box">
+                    <div
+                      id="fileDropArea"
+                      class="upload-box-dashed d-flex flex-column justify-content-center align-items-center position-relative fs-3"
+                    >
+                      <div class="upload-show">
+                        <p class="mb-0 d-none d-lg-block">
+                          ファイルをドロップして
+                        </p>
+                        <p class="d-none d-lg-block">アップロード</p>
+                        <p class="fs-4 d-none d-lg-block">または</p>
+                        <input
+                          id="fileInput"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          class="d-none"
+                        />
+                        <input
+                          id="capturePhoto"
+                          type="file"
+                          accept="image/*"
+                          capture
+                          multiple
+                          class="d-none"
+                        />
+                        <label
+                          for="capturePhoto"
+                          class="btn gradient-button btn-upload d-block d-lg-none text-base mb-4"
+                        >
+                          写真を撮る
+                        </label>
+                        <label
+                          for="fileInput"
+                          class="btn gradient-button btn-upload text-base"
+                        >
+                          <div class="d-none d-lg-block">ファイルを選択</div>
+                          <div class="d-block d-lg-none">
+                            アルバムからファイルを選択
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MENU tab content -->
+            <div id="menu-tab-content" class="tab-pane fade">
+              <div class="row h-100">
+                <div class="col-lg-12 px-0">
+                  <div class="menu-box h-100 text-base">
+                    <div id="sticky-note-1" class="sticky sticky-header fs-5">
+                      利用規約 1
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-2" class="sticky sticky-header fs-5">
+                      利用規約 2
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-3" class="sticky sticky-header fs-5">
+                      利用規約 3
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-4" class="sticky sticky-header fs-5">
+                      利用規約 4
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-5" class="sticky sticky-header fs-5">
+                      利用規約 5
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-6" class="sticky sticky-header fs-5">
+                      利用規約 6
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-7" class="sticky sticky-header fs-5">
+                      利用規約 7
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-8" class="sticky sticky-header fs-5">
+                      利用規約 8
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                    <div id="sticky-note-9" class="sticky sticky-header fs-5">
+                      利用規約 9
+                    </div>
+                    <div class="sticky-content">
+                      この利用規約（以下，「本規約」といいます。）は，＿＿＿＿（以下，「当社」といいます。）
+                      がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
+                      登録のユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本規約をご利用いただきます。
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom section - TAB MENU -->
+    <div class="container-xxl bg-bottom">
+      <div class="row">
+        <div class="col-lg-12 px-0">
+          <!-- Nav -->
+          <ul class="nav nav-tabs fs-lg-5">
+            <!-- DESIGN tab -->
+            <li class="nav-item custom-nav">
+              <a
+                class="nav-link active border-start-0"
+                data-bs-toggle="tab"
+                href="#design-tab"
+                role="0"
+              >
+                DESIGN
+              </a>
+            </li>
+            <!-- UPLOAD tab -->
+            <li class="nav-item custom-nav">
+              <a
+                class="nav-link"
+                data-bs-toggle="tab"
+                href="#upload-tab"
+                role="1"
+              >
+                UPLOAD
+              </a>
+            </li>
+            <!-- MENU tab -->
+            <li class="nav-item custom-nav">
+              <a
+                class="nav-link border-end-0"
+                data-bs-toggle="tab"
+                href="#menu-tab"
+                role="2"
+              >
+                MENU
+              </a>
+            </li>
+          </ul>
+
+          <!-- Tab content -->
+          <div class="tab-content tab-content-bottom py-3 py-lg-5 px-3">
+            <!-- DESIGN tab content -->
+            <div id="design-tab" class="tab-pane fade show active">
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- Inputs for selected options -->
+                  <div class="row">
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select1">分類</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select1"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>分類</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select2">デザイン</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select2"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>デザイン</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select3">金種</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select3"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>金種</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select4">石名</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select4"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>石名</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select5">脇石</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select5"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>脇石</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 py-2">
+                      <div class="row">
+                        <div
+                          class="col-2 col-md-3 col-lg-3 my-auto text-base text-nowrap"
+                        >
+                          <label for="select6">その他</label>
+                        </div>
+                        <div class="col-10 col-md-9 col-lg-9">
+                          <select
+                            id="select6"
+                            class="form-select custom-input"
+                            aria-label=".form-select-lg"
+                          >
+                            <option selected>その他</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Search input -->
+                  <div class="row mt-4">
+                    <div class="col-lg-12">
+                      <div class="input-group input-group-lg">
+                        <input
+                          type="text"
+                          class="form-control rounded-2 border-0 custom-input-search"
+                          placeholder="Free Word"
+                        />
+                        <button
+                          class="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5"
+                        >
+                          <i
+                            class="fa-solid fa-gears fa-flip-horizontal fs-lg-1"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Additional information -->
+                  <div class="row mt-3 color-base text-base">
+                    <div class="col-lg-6">
+                      キーワードは、カンマ区切りで複数キーワードを入力できます
+                    </div>
+                    <div class="col-lg-6 text-lg-end mt-3 mt-lg-0">
+                      著作権など他者の権利を尊重する責任があります
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- UPLOAD tab content -->
+            <div id="upload-tab" class="tab-pane fade">
+              <div class="row px-3">
+                <div class="col-lg-12">
+                  <div class="text-left fs-sm-5">
+                    デザイン画像アップロードの注意事項
+                  </div>
+                  <!-- Upload file list -->
+                  <div class="row mt-3">
+                    <div class="col-lg-12 px-0">
+                      <ul id="file-list">
+                        <li class="text-base">
+                          注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                        </li>
+                        <li class="text-base">
+                          注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                        </li>
+                        <li class="text-base">
+                          注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                        </li>
+                        <li class="text-base">
+                          注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MENU tab content -->
+            <div id="menu-tab" class="tab-pane fade">
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- Menu links -->
+                  <div class="row">
+                    <div class="col-6 col-md-4 px-3 px-lg-5">
+                      <ul class="list-unstyled list-link text-base">
+                        <li>メニュー</li>
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">ヘルプ</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-6 col-md-4 px-3 px-lg-5">
+                      <ul class="list-unstyled list-link text-base">
+                        <li>ユーザーページ</li>
+                        <li><a href="#">ユーザー情報編集</a></li>
+                        <li><a href="#">パスワード変更</a></li>
+                        <li><a href="#">保存デザインリスト</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-6 col-md-4 px-3 px-lg-5">
+                      <ul class="list-unstyled list-link text-base">
+                        <li>管理者ページ</li>
+                        <li><a href="#">新規ユーザー登録</a></li>
+                        <li><a href="#">ユーザー編集・削除</a></li>
+                        <li><a href="#">ユーザーリスト</a></li>
+                        <li><a href="#">会社情報登録・編集</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
