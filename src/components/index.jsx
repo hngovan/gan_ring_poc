@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
+import { FaGears, FaXmark } from "react-icons/fa6";
 
 const dataImage = [
   {
@@ -214,17 +215,28 @@ function UploadTabContent() {
     }
   };
 
+  const handleBtnRemove = () => {
+    const imageElement = document.querySelector(".img-show");
+    const imageContainer = document.querySelector(".btn-remove");
+    const uploadBox = document.querySelector(".upload-show");
+    imageElement.remove();
+    imageContainer.classList.add("d-none");
+    uploadBox.classList.remove("d-none");
+  };
+
   // Handle uploaded files
   const handleFiles = (files) => {
     const file = files[0];
     const reader = new FileReader();
     const imageShow = document.getElementById("fileDropArea");
+    const imageContainer = document.querySelector(".btn-remove");
     const uploadBox = document.querySelector(".upload-show");
     if (files.length > 0) {
       uploadBox.classList.add("d-none");
-
+      imageContainer.classList.remove("d-none");
       reader.onload = function (event) {
         const imageElement = document.createElement("img");
+        imageElement.setAttribute("class", "img-show");
         imageElement.setAttribute("src", event.target.result);
         imageElement.setAttribute("alt", "Uploaded Image");
         imageElement.setAttribute(
@@ -232,20 +244,6 @@ function UploadTabContent() {
           "object-fit: contain; object-position: center; width: 100%; height: 100%"
         );
 
-        const imageContainer = document.createElement("div");
-        imageContainer.classList.add("btn-remove");
-
-        const deleteIcon = document.createElement("i");
-        deleteIcon.classList.add("fa-solid", "fa-xmark");
-
-        deleteIcon.addEventListener("click", function () {
-          imageElement.remove();
-          imageContainer.remove();
-          uploadBox.classList.remove("d-none");
-        });
-
-        imageContainer.appendChild(deleteIcon);
-        imageShow.appendChild(imageContainer);
         imageShow.appendChild(imageElement);
       };
 
@@ -301,6 +299,12 @@ function UploadTabContent() {
                   アルバムからファイルを選択
                 </div>
               </label>
+            </div>
+            <div
+              className="btn-remove d-none"
+              onClick={() => handleBtnRemove()}
+            >
+              <FaXmark />
             </div>
           </div>
         </div>
@@ -632,9 +636,9 @@ function Home() {
                       />
                       <Button
                         type="button"
-                        className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5"
+                        className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
                       >
-                        sss
+                        <FaGears className="icon-gear" />
                       </Button>
                     </Form.Group>
                   </Col>

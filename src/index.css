@@ -1,6 +1,6 @@
 :root {
-  --color-base: #E9E9F2;
-  --color-gray: #A7A8AD;
+  --color-base: #e9e9f2;
+  --color-gray: #a7a8ad;
   --bg-base: #1d1e20;
   --bg-tab: #2c2f38;
   --bg-upload: #ff0000;
@@ -50,12 +50,12 @@
 }
 
 .custom-input-search {
-  background-color: #373A43;
+  background-color: #373a43;
   color: var(--color-base);
 }
 
 .custom-input-search:focus {
-  background-color: #373A43;
+  background-color: #373a43;
   color: var(--color-base);
 }
 
@@ -93,13 +93,13 @@
   color: #606166;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: #373A43;
+  background-color: #373a43;
   border-right: 1px solid #606166;
   padding: 8px 16px;
 }
 
 .nav-fill .nav-item .nav-link.active {
-  background-color: #2C2F38;
+  background-color: #2c2f38;
   color: var(--color-base);
   border: 0;
 }
@@ -387,8 +387,8 @@
   padding: 20px 30px 0 30px;
 }
 
-.image-info>div {
-  border-bottom: 1px solid #D4D4DE;
+.image-info > div {
+  border-bottom: 1px solid #d4d4de;
   padding-bottom: 20px;
 }
 
@@ -400,8 +400,14 @@
   height: 100%;
 }
 
-.container-top .tab-content>.active {
+.container-top .tab-content > .active {
   height: 100%;
+}
+
+.icon-gear {
+  height: 25px;
+  width: 25px;
+  transform: rotate(0.83turn);
 }
 
 /* ============================ END ====================== */
@@ -428,6 +434,12 @@
   .btn-upload {
     padding: 6px 20px;
     width: 350px;
+  }
+
+  .icon-gear {
+    height: 35px;
+    width: 35px;
+    transform: rotate(0.83turn);
   }
 }
 
