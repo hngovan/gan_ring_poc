@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Gan Ring Poc - Login';
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -1,14 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Tabs,
-  Tab,
-  Nav,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 
 const dataImage = [
   {
@@ -175,7 +166,10 @@ function DesignTabContent() {
           ) : (
             <React.Fragment>
               {[...Array(12)].map((_, index) => (
-                <div key={index} className="image-grid-item px-0"></div>
+                <div
+                  key={index}
+                  className="image-grid-item bg-transparent"
+                ></div>
               ))}
             </React.Fragment>
           )}
@@ -260,8 +254,8 @@ function UploadTabContent() {
   };
 
   return (
-    <Row className="h-100">
-      <Col lg={12} className="px-0 upload-box-bg">
+    <div className="h-100">
+      <div className="px-0 upload-box-bg w-100">
         <div className="upload-box">
           <div
             id="fileDropArea"
@@ -310,8 +304,8 @@ function UploadTabContent() {
             </div>
           </div>
         </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
 
@@ -350,6 +344,10 @@ function Home() {
   const [screenSize, setScreenSize] = useState("");
 
   const contentRef = useRef(null);
+
+  useEffect(() => {
+    document.title = "Gan Ring Poc - Home";
+  }, []);
 
   useEffect(() => {
     const idKey = ["0", "1", "2"];
@@ -392,6 +390,12 @@ function Home() {
       const fullWidth = contentRef.current.clientWidth;
       autoResize(fullWidth, screenSize.span);
       autoResizeInfo(fullWidth, screenSize.info);
+      const containerTop = document.querySelector(".container-top");
+      if (isMobileDevice()) {
+        containerTop.style.boxSizing = "border-box";
+      } else {
+        containerTop.style.boxSizing = "content-box";
+      }
     }
   }, [screenSize]);
 
@@ -432,12 +436,15 @@ function Home() {
       containerTop.style.maxHeight = `${maxScreen * 3}px`;
       containerTop.style.height = `${maxScreen * 3}px`;
 
+      const uploadBox = document.querySelector(".upload-box");
+      uploadBox.style.height = `${maxScreen * 3}px`;
+
       localStorage.setItem("currentState", JSON.stringify(currentState));
     }
   };
 
   const autoResizeInfo = (fullScreen, expand) => {
-    const maxShow = (fullScreen + 26) / expand;
+    const maxShow = fullScreen / expand;
     const boxUpload = document.querySelector(".image-box .image-card");
     if (boxUpload) {
       boxUpload.style.height = maxShow + "px";
