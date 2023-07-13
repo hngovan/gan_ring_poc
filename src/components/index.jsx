@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 
 const dataImage = [
   {
@@ -161,6 +162,15 @@ function DesignTabContent() {
                 }`}
                 onClick={(event) => expandImage(image.src, index, event)}
               >
+                <div
+                  className={`icon-search fs-1 ${
+                    expandedImageIndex === index
+                      ? "d-none d-lg-block"
+                      : "d-none"
+                  }`}
+                >
+                  <FaSearch />
+                </div>
                 <img src={image.src} alt={"Image " + (index + 1)} />
               </div>
             ))
@@ -479,266 +489,268 @@ function Home() {
         </Tabs>
       </Container>
       {/* Bottom section - TAB MENU */}
-      <Container fluid="xxl" className="bg-bottom">
-        <Row>
-          <Col lg={12} className="px-0">
-            <Tabs
-              defaultActiveKey="0"
-              id="fill-tab-example"
-              className="fs-lg-5"
-              fill
-              onSelect={(k) => setKey(k)}
-            >
-              {/* DESIGN tab content */}
-              <Tab eventKey="0" title="DESIGN" className="custom-nav">
-                {/* Inputs for selected options */}
-                <Row>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select1">
-                          分類
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">分類</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select2">
-                          デザイン
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">デザイン</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select2">
-                          金種
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">金種</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select2">
-                          石名
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">石名</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select2">
-                          脇石
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">脇石</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={4} lg={3} className="py-2">
-                    <Row>
-                      <Col
-                        xs={2}
-                        md={3}
-                        lg={3}
-                        className="my-auto text-base text-nowrap"
-                      >
-                        <Form.Label className="mb-0" htmlFor="select2">
-                          その他
-                        </Form.Label>
-                      </Col>
-                      <Col xs={10} md={9} lg={9}>
-                        <Form.Select className="custom-input">
-                          <option value="">その他</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-                <Row className="mt-4">
-                  <Col lg={12}>
-                    <Form.Group className="input-group input-group-lg">
-                      <Form.Control
-                        type="text"
-                        className="form-control rounded-2 border-0 custom-input-search"
-                        placeholder="Free Word"
-                      />
-                      <Button
-                        type="button"
-                        className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
-                      >
-                        <FaGears className="icon-gear" />
-                      </Button>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="mt-3 color-base text-base">
-                  <Col lg={6}>
-                    キーワードは、カンマ区切りで複数キーワードを入力できます
-                  </Col>
-                  <Col lg={6} className="text-lg-end mt-3 mt-lg-0">
-                    著作権など他者の権利を尊重する責任があります
-                  </Col>
-                </Row>
-              </Tab>
-              {/* UPLOAD tab content */}
-              <Tab eventKey="1" title="UPLOAD" className="custom-nav">
-                <Row className="px-3">
-                  <Col lg={12}>
-                    <div className="text-left fs-sm-5">
-                      デザイン画像アップロードの注意事項
-                    </div>
-                    <Row className="mt-3">
-                      <Col lg={12} className="px-0">
-                        <ul id="file-list">
-                          <li className="text-base">
-                            注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
-                          </li>
-                          <li className="text-base">
-                            注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
-                          </li>
-                          <li className="text-base">
-                            注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
-                          </li>
-                          <li className="text-base">
-                            注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Tab>
-              {/* MENU tab content */}
-              <Tab eventKey="2" title="MENU" className="custom-nav">
-                <Row>
-                  <Col lg={12}>
-                    {/* Menu links */}
-                    <Row>
-                      <Col className="col-6 col-md-4 px-3 px-lg-5">
-                        <ul className="list-unstyled list-link text-base">
-                          <li>メニュー</li>
-                          <li>
-                            <a href="#">利用規約</a>
-                          </li>
-                          <li>
-                            <a href="#">プライバシーポリシー</a>
-                          </li>
-                          <li>
-                            <a href="#">ヘルプ</a>
-                          </li>
-                        </ul>
-                      </Col>
-                      <Col className="col-6 col-md-4 px-3 px-lg-5">
-                        <ul className="list-unstyled list-link text-base">
-                          <li>ユーザーページ</li>
-                          <li>
-                            <a href="#">ユーザー情報編集</a>
-                          </li>
-                          <li>
-                            <a href="#">パスワード変更</a>
-                          </li>
-                          <li>
-                            <a href="#">保存デザインリスト</a>
-                          </li>
-                        </ul>
-                      </Col>
-                      <Col className="col-6 col-md-4 px-3 px-lg-5">
-                        <ul className="list-unstyled list-link text-base">
-                          <li>管理者ページ</li>
-                          <li>
-                            <a href="#">新規ユーザー登録</a>
-                          </li>
-                          <li>
-                            <a href="#">ユーザー編集・削除</a>
-                          </li>
-                          <li>
-                            <a href="#">ユーザーリスト</a>
-                          </li>
-                          <li>
-                            <a href="#">会社情報登録・編集</a>
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
-      </Container>
+      <div className="bg-bottom">
+        <Container fluid="xxl">
+          <Row>
+            <Col lg={12} className="px-0">
+              <Tabs
+                defaultActiveKey="0"
+                id="fill-tab-example"
+                className="fs-lg-5"
+                fill
+                onSelect={(k) => setKey(k)}
+              >
+                {/* DESIGN tab content */}
+                <Tab eventKey="0" title="DESIGN" className="custom-nav">
+                  {/* Inputs for selected options */}
+                  <Row>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select1">
+                            分類
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">分類</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select2">
+                            デザイン
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">デザイン</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select2">
+                            金種
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">金種</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select2">
+                            石名
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">石名</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select2">
+                            脇石
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">脇石</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={4} lg={3} className="py-2">
+                      <Row>
+                        <Col
+                          xs={2}
+                          md={3}
+                          lg={3}
+                          className="my-auto text-base text-nowrap"
+                        >
+                          <Form.Label className="mb-0" htmlFor="select2">
+                            その他
+                          </Form.Label>
+                        </Col>
+                        <Col xs={10} md={9} lg={9}>
+                          <Form.Select className="custom-input">
+                            <option value="">その他</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                  <Row className="mt-4">
+                    <Col lg={12}>
+                      <Form.Group className="input-group input-group-lg">
+                        <Form.Control
+                          type="text"
+                          className="form-control rounded-2 border-0 custom-input-search"
+                          placeholder="Free Word"
+                        />
+                        <Button
+                          type="button"
+                          className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
+                        >
+                          <FaGears className="icon-gear" />
+                        </Button>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3 color-base text-base">
+                    <Col lg={6}>
+                      キーワードは、カンマ区切りで複数キーワードを入力できます
+                    </Col>
+                    <Col lg={6} className="text-lg-end mt-3 mt-lg-0">
+                      著作権など他者の権利を尊重する責任があります
+                    </Col>
+                  </Row>
+                </Tab>
+                {/* UPLOAD tab content */}
+                <Tab eventKey="1" title="UPLOAD" className="custom-nav">
+                  <Row className="px-3">
+                    <Col lg={12}>
+                      <div className="text-left fs-sm-5">
+                        デザイン画像アップロードの注意事項
+                      </div>
+                      <Row className="mt-3">
+                        <Col lg={12} className="px-0">
+                          <ul id="file-list">
+                            <li className="text-base">
+                              注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                            </li>
+                            <li className="text-base">
+                              注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                            </li>
+                            <li className="text-base">
+                              注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                            </li>
+                            <li className="text-base">
+                              注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項、注意事項
+                            </li>
+                          </ul>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Tab>
+                {/* MENU tab content */}
+                <Tab eventKey="2" title="MENU" className="custom-nav">
+                  <Row>
+                    <Col lg={12}>
+                      {/* Menu links */}
+                      <Row>
+                        <Col className="col-6 col-md-4 px-3 px-lg-5">
+                          <ul className="list-unstyled list-link text-base">
+                            <li>メニュー</li>
+                            <li>
+                              <a href="#">利用規約</a>
+                            </li>
+                            <li>
+                              <a href="#">プライバシーポリシー</a>
+                            </li>
+                            <li>
+                              <a href="#">ヘルプ</a>
+                            </li>
+                          </ul>
+                        </Col>
+                        <Col className="col-6 col-md-4 px-3 px-lg-5">
+                          <ul className="list-unstyled list-link text-base">
+                            <li>ユーザーページ</li>
+                            <li>
+                              <a href="#">ユーザー情報編集</a>
+                            </li>
+                            <li>
+                              <a href="#">パスワード変更</a>
+                            </li>
+                            <li>
+                              <a href="#">保存デザインリスト</a>
+                            </li>
+                          </ul>
+                        </Col>
+                        <Col className="col-6 col-md-4 px-3 px-lg-5">
+                          <ul className="list-unstyled list-link text-base">
+                            <li>管理者ページ</li>
+                            <li>
+                              <a href="#">新規ユーザー登録</a>
+                            </li>
+                            <li>
+                              <a href="#">ユーザー編集・削除</a>
+                            </li>
+                            <li>
+                              <a href="#">ユーザーリスト</a>
+                            </li>
+                            <li>
+                              <a href="#">会社情報登録・編集</a>
+                            </li>
+                          </ul>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Tab>
+              </Tabs>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 }

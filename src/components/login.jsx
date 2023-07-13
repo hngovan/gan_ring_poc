@@ -18,7 +18,8 @@ function Login() {
     } else {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
-      navigate("/"); 
+      localStorage.setItem("auth", JSON.stringify(payload));
+      navigate("/");
       try {
         const response = await fetch("api/login", {
           method: "POST",
@@ -27,9 +28,8 @@ function Login() {
           },
           body: JSON.stringify(payload),
         });
-
         if (response.ok) {
-          navigate("/home");
+          navigate("/");
           console.log("Submit success");
         } else {
           console.error("Submit error");
