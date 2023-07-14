@@ -257,6 +257,7 @@ body {
 }
 
 .bg-bottom {
+  position: relative;
   background-color: var(--bg-tab);
 }
 
@@ -345,6 +346,44 @@ body {
 }
 
 /* ============================ DESIGN Image ====================== */
+.pagination-custom {
+  position: absolute;
+  left: 50%;
+  top: -45px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  list-style-type: none;
+  z-index: 2;
+  padding-left: 0;
+}
+
+.pagination-custom .page-item {
+  background-color: var(--bg-base);
+  color: var(--color-base);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+}
+
+.pagination-custom .page-item.active{
+  background-color: var(--color-gray);
+}
+
+.pagination-custom .page-item .page-link {
+  padding: 6px 12px;
+}
+
+.pagination-custom .page-item.disabled {
+  background-color: var(--color-gray);
+}
+
+/* ============================ END ====================== */
+
+/* ============================ DESIGN Image ====================== */
 .image-grid {
   --gap: 16px;
   --num-cols: 2;
@@ -356,6 +395,7 @@ body {
   /* grid-auto-rows: var(--row-height); */
   /* gap: var(--gap); */
   grid-auto-flow: dense;
+  position: relative;
 }
 
 .image-box {
@@ -393,7 +433,7 @@ body {
   padding: 20px 30px 0 30px;
 }
 
-.image-info > div {
+.image-info>div {
   border-bottom: 1px solid #d4d4de;
   padding-bottom: 20px;
 }
@@ -406,7 +446,7 @@ body {
   height: 100%;
 }
 
-.container-top .tab-content > .active {
+.container-top .tab-content>.active {
   height: 100%;
 }
 

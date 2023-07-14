@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
+import MyPagination from "../components/pagination";
 
 const dataImage = [
   {
@@ -98,6 +99,13 @@ function DesignTabContent() {
     },
   ];
 
+  useEffect(() => {
+    const pagination = document.querySelector(".pagination-custom");
+    if (pagination && showDetails.state) {
+      pagination.classList.add("d-none");
+    }
+  }, [showDetails.state]);
+
   return (
     <>
       {showDetails.state ? (
@@ -143,7 +151,7 @@ function DesignTabContent() {
                   </div>
                 ))
               ) : (
-                <>s</>
+                <>Not found</>
               )}
             </div>
           </div>
@@ -356,6 +364,7 @@ function MenuTabContent() {
 function Home() {
   const [key, setKey] = useState("0");
   const [screenSize, setScreenSize] = useState("");
+  const [page, setPage] = useState(1);
 
   const contentRef = useRef(null);
 
@@ -464,6 +473,10 @@ function Home() {
     );
   };
 
+  const handleOnchangePage = useCallback((page) => {
+    setPage(page);
+  }, []);
+
   return (
     <>
       {/* Top section - DESIGN or UPLOAD or MENU */}
@@ -482,6 +495,12 @@ function Home() {
       </Container>
       {/* Bottom section - TAB MENU */}
       <div className="bg-bottom">
+        <MyPagination
+          total={dataImage.length}
+          currentPage={page}
+          itemsPerPage={10}
+          onPageChange={handleOnchangePage}
+        />
         <Container fluid="xxl">
           <Row>
             <Col lg={12} className="px-0">
