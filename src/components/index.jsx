@@ -372,9 +372,9 @@ function Home() {
     document.title = "Gan Ring Poc - Home";
   }, []);
 
-  const pagination = document.querySelector(".pagination-custom");
   useEffect(() => {
     const idKey = ["0", "1", "2"];
+    const pagination = document.querySelector(".pagination-custom");
     setKey(idKey[key]);
     if (pagination && key != 0) {
       pagination.classList.add("d-none");
