@@ -374,7 +374,13 @@ function Home() {
 
   useEffect(() => {
     const idKey = ["0", "1", "2"];
+    const pagination = document.querySelector(".pagination-custom");
     setKey(idKey[key]);
+    if (pagination && key != 0) {
+      pagination.classList.add("d-none");
+    } else if (pagination) {
+      pagination.classList.remove("d-none");
+    }
   }, [key]);
 
   useEffect(() => {
