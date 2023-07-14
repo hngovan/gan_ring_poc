@@ -370,7 +370,7 @@ function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      const width = contentRef.current.clientWidth;
+      const width = window.innerWidth;
       let span, info;
       if (width >= 1400) {
         span = 4;
@@ -420,10 +420,6 @@ function Home() {
     const containerTop = document.querySelector(".container-top");
 
     const maxScreen = fullWidth / span;
-    let currentState = {
-      show: maxScreen,
-      container: maxScreen * 3,
-    };
 
     if (elementWidth && elementHeight) {
       imageGridItems.forEach((item) => {
@@ -438,8 +434,6 @@ function Home() {
       const uploadBox = document.querySelector(".upload-box");
       uploadBox.style.height = `${maxScreen * 3}px`;
       // }
-
-      localStorage.setItem("currentState", JSON.stringify(currentState));
     } else {
       imageGridItems.forEach((item) => {
         item.style.height = `${maxScreen}px`;
@@ -452,8 +446,6 @@ function Home() {
 
       const uploadBox = document.querySelector(".upload-box");
       uploadBox.style.height = `${maxScreen * 3}px`;
-
-      localStorage.setItem("currentState", JSON.stringify(currentState));
     }
   };
 
