@@ -100,6 +100,18 @@ function DesignTabContent() {
     },
   ];
 
+  const handleImageClose = () => {
+    setExpandedImageIndex(null);
+    setShowDetails((prevState) => ({
+      ...prevState,
+      state: false,
+    }));
+  };
+
+  const handleImageClick = (event) => {
+    event.stopPropagation();
+  };
+
   useEffect(() => {
     const pagination = document.querySelector(".pagination-custom");
     if (pagination && showDetails.state) {
@@ -110,13 +122,18 @@ function DesignTabContent() {
   return (
     <>
       {showDetails.state ? (
-        <div className="row h-100">
+        <div className="row h-100" onClick={handleImageClose}>
           <div className="image-box">
             <div
               className="image-card"
               style={{ width: showDetails.width, height: showDetails.height }}
             >
-              <img src={showDetails.image} alt="" className="image-show" />
+              <img
+                src={showDetails.image}
+                alt=""
+                className="image-show"
+                onClick={handleImageClick}
+              />
             </div>
             <div className="row m-auto image-card-content">
               <div className="col-12 d-block d-lg-none">
