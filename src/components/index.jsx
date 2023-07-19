@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
 import MyPagination from "../components/pagination";
+import Zoom from "../components/ZoomImage";
 
 const dataImage = [
   {
@@ -51,13 +51,13 @@ function DesignTabContent() {
     width: null,
     height: null,
   });
+  const [imageContent, setImageContent] = useState(null);
 
   const expandImage = (image, index, event) => {
     setExpandedImageIndex(index);
+    const width = event.currentTarget.clientWidth;
+    const height = event.currentTarget.clientHeight;
     if (expandedImageIndex == index) {
-      const width = event.currentTarget.clientWidth;
-      const height = event.currentTarget.clientHeight;
-
       setShowDetails((prevState) => ({
         ...prevState,
         image: image,
@@ -66,6 +66,7 @@ function DesignTabContent() {
         height: height,
       }));
     }
+    setImageContent(parseInt(width));
   };
 
   const dataShowDetails = [
@@ -170,16 +171,19 @@ function DesignTabContent() {
                 }`}
                 onClick={(event) => expandImage(image.src, index, event)}
               >
-                <div
-                  className={`icon-search fs-1 ${
-                    expandedImageIndex === index
-                      ? "d-none d-lg-block"
-                      : "d-none"
-                  }`}
-                >
-                  <FaSearch />
-                </div>
-                <img src={image.src} alt={"Image " + (index + 1)} />
+                {expandedImageIndex === index ? (
+                  <>
+                    <Zoom
+                      img={image.src}
+                      zoomScale={2.5}
+                      height={imageContent * 2}
+                      width={imageContent * 2}
+                    />
+                    {/* <img src={image.src} alt={"Image " + (index + 1)} /> */}
+                  </>
+                ) : (
+                  <img src={image.src} alt={"Image " + (index + 1)} />
+                )}
               </div>
             ))
           ) : (
@@ -200,7 +204,7 @@ function DesignTabContent() {
 
 function UploadTabContent() {
   const [isDragOver, setIsDragOver] = useState(false);
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -216,13 +220,13 @@ function UploadTabContent() {
     event.preventDefault();
     setIsDragOver(false);
     const newFiles = Array.from(event.dataTransfer.files);
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    // setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     handleFiles(newFiles);
   };
 
   const handleInputChange = (event) => {
     const newFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    // setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     handleFiles(newFiles);
   };
 
@@ -361,6 +365,143 @@ function MenuTabContent() {
   );
 }
 
+const designOption = [
+  {
+    label: "分類",
+    option: [
+      {
+        value: "リング",
+        name: "リング",
+      },
+      {
+        value: "ネグレクト",
+        name: "ネグレクト",
+      },
+      {
+        value: "腕輪",
+        name: "腕輪",
+      },
+    ],
+  },
+  {
+    label: "デザイン",
+    option: [
+      {
+        value: "四角",
+        name: "四角",
+      },
+      {
+        value: "丸",
+        name: "丸",
+      },
+      {
+        value: "三角",
+        name: "三角",
+      },
+      {
+        value: "六角",
+        name: "六角",
+      },
+      {
+        value: "ハート",
+        name: "ハート",
+      },
+    ],
+  },
+  {
+    label: "金種",
+    option: [
+      {
+        value: "K10PG",
+        name: "K10PG",
+      },
+      {
+        value: "K14PG",
+        name: "K14PG",
+      },
+      {
+        value: "K18PG",
+        name: "K18PG",
+      },
+      {
+        value: "K24PG",
+        name: "K24PG",
+      },
+    ],
+  },
+  {
+    label: "石名",
+    option: [
+      {
+        value: "石なし",
+        name: "石なし",
+      },
+      {
+        value: "ルビー",
+        name: "ルビー",
+      },
+      {
+        value: "パール",
+        name: "パール",
+      },
+      {
+        value: "ダイヤモンド",
+        name: "ダイヤモンド",
+      },
+      {
+        value: "ムーン",
+        name: "ムーン",
+      },
+      {
+        value: "ガーナット",
+        name: "ガーナット",
+      },
+      {
+        value: "エメラルド",
+        name: "エメラルド",
+      },
+    ],
+  },
+  {
+    label: "脇石",
+    option: [
+      {
+        value: "なし",
+        name: "なし",
+      },
+      {
+        value: "あり（少なめ）",
+        name: "あり（少なめ）",
+      },
+      {
+        value: "あり（多め）",
+        name: "あり（多め）",
+      },
+    ],
+  },
+  {
+    label: "その他",
+    option: [
+      {
+        value: "ゴールド",
+        name: "ゴールド",
+      },
+      {
+        value: "シルバー",
+        name: "シルバー",
+      },
+      {
+        value: "男",
+        name: "男",
+      },
+      {
+        value: "女",
+        name: "女",
+      },
+    ],
+  },
+];
+
 function Home() {
   const [key, setKey] = useState("0");
   const [screenSize, setScreenSize] = useState("");
@@ -435,7 +576,6 @@ function Home() {
     const containerTop = document.querySelector(".container-top");
 
     const maxScreen = fullWidth / span;
-
     if (elementWidth && elementHeight) {
       imageGridItems.forEach((item) => {
         item.style.width = maxScreen + "px";
@@ -521,138 +661,36 @@ function Home() {
                 <Tab eventKey="0" title="DESIGN" className="custom-nav">
                   {/* Inputs for selected options */}
                   <Row>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select1">
-                            分類
-                          </Form.Label>
+                    {designOption.length ? (
+                      designOption.map((item, index) => (
+                        <Col md={4} lg={3} className="py-2" key={index}>
+                          <Row>
+                            <Col
+                              xs={2}
+                              md={3}
+                              lg={3}
+                              className="my-auto text-base text-nowrap"
+                            >
+                              <Form.Label className="mb-0" htmlFor="select1">
+                                {item.label}
+                              </Form.Label>
+                            </Col>
+                            <Col xs={10} md={9} lg={9}>
+                              <Form.Select className="custom-input">
+                                <option value="">--</option>
+                                {item.option.map((data) => (
+                                  <option value={data.value} key={data.value}>
+                                    {data.name}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </Col>
+                          </Row>
                         </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">分類</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select2">
-                            デザイン
-                          </Form.Label>
-                        </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">デザイン</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select2">
-                            金種
-                          </Form.Label>
-                        </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">金種</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select2">
-                            石名
-                          </Form.Label>
-                        </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">石名</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select2">
-                            脇石
-                          </Form.Label>
-                        </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">脇石</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md={4} lg={3} className="py-2">
-                      <Row>
-                        <Col
-                          xs={2}
-                          md={3}
-                          lg={3}
-                          className="my-auto text-base text-nowrap"
-                        >
-                          <Form.Label className="mb-0" htmlFor="select2">
-                            その他
-                          </Form.Label>
-                        </Col>
-                        <Col xs={10} md={9} lg={9}>
-                          <Form.Select className="custom-input">
-                            <option value="">その他</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </Col>
+                      ))
+                    ) : (
+                      <>Not Found</>
+                    )}
                   </Row>
                   <Row className="mt-4">
                     <Col lg={12}>

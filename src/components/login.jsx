@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = 'Gan Ring Poc - Login';
+    document.title = "Gan Ring Poc - Login";
   }, []);
 
   const handleSubmit = async (event) => {
