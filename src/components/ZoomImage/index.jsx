@@ -10,6 +10,7 @@ const Zoom = ({ img, zoomScale, height, width, transitionTime = 0.1 }) => {
     height: `${height}px`,
     width: `${width}px`,
     overflow: "hidden",
+    touchAction: "none", // Disable default touch behavior
   };
 
   const innerDivStyle = {
@@ -46,6 +47,30 @@ const Zoom = ({ img, zoomScale, height, width, transitionTime = 0.1 }) => {
     setMouseY(y);
   };
 
+  const handleTouchStart = (e) => {
+    e.preventDefault(); // Ngăn ngừa hành vi mặc định của thiết bị di động
+    setZoom(true);
+    handleTouchMovement(e.touches[0]);
+  };
+
+  const handleTouchMovement = (touch) => {
+    const { left: offsetLeft, top: offsetTop } =
+      imageRef.current.getBoundingClientRect();
+    const {
+      current: {
+        style: { height, width },
+      },
+    } = imageRef;
+    const x = ((touch.pageX - offsetLeft) / parseInt(width, 10)) * 100;
+    const y = ((touch.pageY - offsetTop) / parseInt(height, 10)) * 100;
+    setMouseX(x);
+    setMouseY(y);
+  };
+
+  const handleTouchEnd = () => {
+    setZoom(false);
+  };
+
   const transform = {
     transformOrigin: `${mouseX}% ${mouseY}%`,
   };
@@ -56,6 +81,9 @@ const Zoom = ({ img, zoomScale, height, width, transitionTime = 0.1 }) => {
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onMouseMove={handleMouseMovement}
+      onTouchStart={handleTouchStart}
+      onTouchMove={(e) => handleTouchMovement(e.touches[0])}
+      onTouchEnd={handleTouchEnd}
       ref={imageRef}
     >
       <div
