@@ -7,17 +7,17 @@ const Zoom = ({ img, zoomScale, height, width, transitionTime = 0.1 }) => {
   const [mouseY, setMouseY] = useState(null);
 
   const outerDivStyle = {
-    height: `${height}px`,
-    width: `${width}px`,
+    height: `${height - 2}px`,
+    width: `${width - 2}px`,
     overflow: "hidden",
     touchAction: "none", // Disable default touch behavior
   };
 
   const innerDivStyle = {
-    height: `${height + 2}px`,
+    height: `${height}px`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    backgroundSize: "auto 100%",
+    backgroundSize: "contain",
     transition: `transform ${transitionTime}s ease-out`,
     backgroundImage: `url('${img}')`,
   };
@@ -48,7 +48,7 @@ const Zoom = ({ img, zoomScale, height, width, transitionTime = 0.1 }) => {
   };
 
   const handleTouchStart = (e) => {
-    e.preventDefault(); // Ngăn ngừa hành vi mặc định của thiết bị di động
+    e.preventDefault();
     setZoom(true);
     handleTouchMovement(e.touches[0]);
   };

@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ADMIN_AUTH_TOKEN_KEY } from "../constants/authentication";
+import AxiosClient from "../utils/axios";
 
 function Login() {
   const [validated, setValidated] = useState(false);
+  const [messageError, setMessageError] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     document.title = "Gan Ring Poc - Login";
-  }, []);
+    const token = localStorage.getItem(ADMIN_AUTH_TOKEN_KEY);
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,21 +25,17 @@ function Login() {
     } else {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
-      localStorage.setItem("auth", JSON.stringify(payload));
-      navigate("/");
       try {
-        const response = await fetch("api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-        if (response.ok) {
+        const response = await AxiosClient.post("/login", payload);
+        const { message, token } = response.data;
+        if (response.status === 201) {
+          localStorage.setItem(ADMIN_AUTH_TOKEN_KEY, token);
+          setShow(false);
           navigate("/");
-          console.log("Submit success");
-        } else {
-          console.error("Submit error");
+        }
+        if (response.status === 200) {
+          setShow(true);
+          setMessageError(message);
         }
       } catch (error) {
         console.error("Submit error", error);
@@ -47,6 +50,17 @@ function Login() {
       <Row className="h-100 justify-content-center align-items-center">
         <Col lg={6}>
           <div className="form-container">
+            {show ? (
+              <Alert
+                variant="danger"
+                onClose={() => setShow(false)}
+                dismissible
+              >
+                {messageError}
+              </Alert>
+            ) : (
+              <></>
+            )}
             <Form
               id="login-form"
               className="needs-validation"
@@ -55,12 +69,12 @@ function Login() {
               validated={validated}
             >
               <Form.Group className="mb-3 text-base">
-                <Form.Label htmlFor="code">企業コード</Form.Label>
+                <Form.Label htmlFor="company_code">企業コード</Form.Label>
                 <Form.Control
                   type="text"
                   className="custom-input"
-                  id="code"
-                  name="code"
+                  id="company_code"
+                  name="company_code"
                   required
                 />
                 <Form.Control.Feedback type="invalid">
@@ -68,12 +82,12 @@ function Login() {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3 text-base">
-                <Form.Label htmlFor="user-id">ユーザーID</Form.Label>
+                <Form.Label htmlFor="user_name">ユーザーID</Form.Label>
                 <Form.Control
                   type="text"
                   className="custom-input"
-                  id="user-id"
-                  name="user-id"
+                  id="user_name"
+                  name="user_name"
                   required
                 />
                 <Form.Control.Feedback type="invalid">

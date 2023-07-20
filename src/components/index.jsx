@@ -3,47 +3,10 @@ import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
 import MyPagination from "../components/pagination";
 import Zoom from "../components/ZoomImage";
+import AxiosClient from "../utils/axios";
 
-const dataImage = [
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/106/gnddddh000135-nhan-kim-cuong-vang-14k-pnj.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/115/gnrbxmy001016-nhan-vang-18k-dinh-da-ruby-pnj-1.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/103/gntpmxc000003-nhan-vang-14k-dinh-da-topaz-pnj.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/105/gnrbxmy000994-nhan-vang-18k-dinh-da-ruby-pnj-001.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/98/gnctxmy000430-nhan-vang-18k-dinh-da-citrine-pnj-01.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/97/gnptddw000100-nhan-vang-trang-14k-dinh-ngoc-trai-tahiti-pnj-01.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/128/gnctxmy000460-nhan-vang-18k-dinh-da-citrine-pnj-1.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/172/sp-gnddddw005039-nhan-kim-cuong-vang-trang-14k-pnj-1.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/106/gnddddh000135-nhan-kim-cuong-vang-14k-pnj.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/106/gnddddh000014-nhan-kim-cuong-vang-18k-pnj-01.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/125/gnddddc000185-nhan-kim-cuong-vang-18k-pnj-1.png",
-  },
-  {
-    src: "https://cdn.pnj.io/images/thumbnails/300/300/detailed/106/gnddddx000025-nhan-kim-cuong-vang-18k-pnj.png",
-  },
-];
-
-function DesignTabContent() {
+// eslint-disable-next-line react/prop-types
+function DesignTabContent({ dataImage = [], contentScreen }) {
   const [expandedImageIndex, setExpandedImageIndex] = useState(null);
   const [showDetails, setShowDetails] = useState({
     image: null,
@@ -51,7 +14,6 @@ function DesignTabContent() {
     width: null,
     height: null,
   });
-  const [imageContent, setImageContent] = useState(null);
 
   const expandImage = (image, index, event) => {
     setExpandedImageIndex(index);
@@ -66,7 +28,6 @@ function DesignTabContent() {
         height: height,
       }));
     }
-    setImageContent(parseInt(width));
   };
 
   const dataShowDetails = [
@@ -121,100 +82,99 @@ function DesignTabContent() {
 
   return (
     <>
-      {showDetails.state ? (
-        <div className="row h-100" onClick={handleImageClose}>
-          <div className="image-box">
-            <div
-              className="image-card"
-              style={{ width: showDetails.width, height: showDetails.height }}
-            >
-              <img
-                src={showDetails.image}
-                alt=""
-                className="image-show"
-                onClick={handleImageClick}
-              />
-            </div>
-            <div className="row m-auto image-card-content">
-              <div className="col-12 d-block d-lg-none">
-                <div className="row image-info">
-                  <div className="col-12 border-0">デザインソース</div>
-                </div>
+      {/* {showDetails.state ? ( */}
+      <div
+        className={`row h-100 ${showDetails.state ? "d-block" : "d-none"}`}
+        onClick={handleImageClose}
+      >
+        <div className="image-box">
+          <div
+            className="image-card"
+            style={{ width: showDetails.width, height: showDetails.height }}
+          >
+            <img
+              src={showDetails.image}
+              alt=""
+              className="image-show"
+              onClick={handleImageClick}
+            />
+          </div>
+          <div className="row m-auto image-card-content">
+            <div className="col-12 d-block d-lg-none">
+              <div className="row image-info">
+                <div className="col-12 border-0">デザインソース</div>
               </div>
-              {dataShowDetails.length > 0 ? (
-                dataShowDetails.map((item, index) => (
-                  <div className="col-md-6 col-lg-4" key={index}>
-                    <div className="row image-info">
-                      <div
-                        className={
-                          "col-4 col-md-6" +
-                          (index === dataShowDetails.length - 1
-                            ? " border-0"
-                            : "")
-                        }
-                      >
-                        {item.label}
-                      </div>
-                      <div
-                        className={
-                          "col-8 col-md-6" +
-                          (index === dataShowDetails.length - 1
-                            ? " border-0"
-                            : "")
-                        }
-                      >
-                        {item.value}
-                      </div>
+            </div>
+            {dataShowDetails.length > 0 ? (
+              dataShowDetails.map((item, index) => (
+                <div className="col-md-6 col-lg-4" key={index}>
+                  <div className="row image-info">
+                    <div
+                      className={
+                        "col-4 col-md-6" +
+                        (index === dataShowDetails.length - 1
+                          ? " border-0"
+                          : "")
+                      }
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      className={
+                        "col-8 col-md-6" +
+                        (index === dataShowDetails.length - 1
+                          ? " border-0"
+                          : "")
+                      }
+                    >
+                      {item.value}
                     </div>
                   </div>
-                ))
-              ) : (
-                <>Not found</>
-              )}
-            </div>
+                </div>
+              ))
+            ) : (
+              <>Not found</>
+            )}
           </div>
         </div>
-      ) : (
-        <div className="image-grid">
-          {/* Image grid items */}
-          {dataImage.length > 0 ? (
-            dataImage.map((image, index) => (
-              <div
-                key={index}
-                className={`image-grid-item ${
-                  expandedImageIndex === index
-                    ? "image-grid-col-2 image-grid-row-2"
-                    : ""
-                }`}
-                onClick={(event) => expandImage(image.src, index, event)}
-              >
-                {expandedImageIndex === index ? (
-                  <>
-                    <Zoom
-                      img={image.src}
-                      zoomScale={2.5}
-                      height={imageContent * 2}
-                      width={imageContent * 2}
-                    />
-                    {/* <img src={image.src} alt={"Image " + (index + 1)} /> */}
-                  </>
-                ) : (
-                  <img src={image.src} alt={"Image " + (index + 1)} />
-                )}
-              </div>
-            ))
-          ) : (
-            <React.Fragment>
-              {[...Array(12)].map((_, index) => (
-                <div
-                  key={index}
-                  className="image-grid-item bg-transparent"
-                ></div>
-              ))}
-            </React.Fragment>
-          )}
-        </div>
-      )}
+      </div>
+      <div
+        className={`image-grid ${!showDetails.state ? "visible" : "d-none"}`}
+      >
+        {/* Image grid items */}
+        {dataImage.length > 0 ? (
+          dataImage.map((image, index) => (
+            <div
+              key={index}
+              className={`image-grid-item ${
+                expandedImageIndex === index
+                  ? "image-grid-col-2 image-grid-row-2"
+                  : ""
+              }`}
+              onClick={(event) => expandImage(image, index, event)}
+            >
+              {expandedImageIndex === index ? (
+                <>
+                  <Zoom
+                    img={image}
+                    zoomScale={2.5}
+                    height={contentScreen * 2}
+                    width={contentScreen * 2}
+                  />
+                </>
+              ) : (
+                <img src={image} alt={"Image " + (index + 1)} />
+              )}
+            </div>
+          ))
+        ) : (
+          <React.Fragment>
+            {[...Array(12)].map((_, index) => (
+              <div key={index} className="image-grid-item bg-transparent"></div>
+            ))}
+          </React.Fragment>
+        )}
+      </div>
     </>
   );
 }
@@ -385,137 +345,143 @@ function MenuTabContent() {
 const designOption = [
   {
     label: "分類",
+    htmlFor: "classify",
     option: [
       {
         value: "リング",
         name: "リング",
+        disabled: false,
       },
       {
-        value: "ネグレクト",
-        name: "ネグレクト",
-      },
-      {
-        value: "腕輪",
-        name: "腕輪",
+        value: "ネックレス",
+        name: "ネックレス",
+        disabled: false,
       },
     ],
   },
   {
     label: "デザイン",
+    htmlFor: "design",
     option: [
       {
         value: "四角",
         name: "四角",
+        disabled: false,
       },
       {
         value: "丸",
         name: "丸",
+        disabled: false,
       },
       {
         value: "三角",
         name: "三角",
+        disabled: false,
       },
       {
         value: "六角",
         name: "六角",
+        disabled: false,
       },
       {
         value: "ハート",
         name: "ハート",
+        disabled: false,
+      },
+      {
+        value: "梨",
+        name: "梨",
+        disabled: false,
+      },
+      {
+        value: "楕円",
+        name: "楕円",
+        disabled: false,
       },
     ],
   },
   {
     label: "金種",
+    htmlFor: "material",
     option: [
-      {
-        value: "K10PG",
-        name: "K10PG",
-      },
-      {
-        value: "K14PG",
-        name: "K14PG",
-      },
       {
         value: "K18PG",
         name: "K18PG",
+        disabled: false,
       },
       {
-        value: "K24PG",
-        name: "K24PG",
+        value: "PT900",
+        name: "PT900",
+        disabled: false,
       },
     ],
   },
   {
     label: "石名",
+    htmlFor: "rock_type",
     option: [
       {
         value: "石なし",
         name: "石なし",
-      },
-      {
-        value: "ルビー",
-        name: "ルビー",
+        disabled: false,
       },
       {
         value: "パール",
         name: "パール",
+        disabled: false,
       },
       {
         value: "ダイヤモンド",
         name: "ダイヤモンド",
+        disabled: false,
+      },
+      {
+        value: "ルビー",
+        name: "ルビー",
+        disabled: true,
       },
       {
         value: "ムーン",
         name: "ムーン",
+        disabled: true,
       },
       {
         value: "ガーナット",
         name: "ガーナット",
+        disabled: true,
       },
       {
         value: "エメラルド",
         name: "エメラルド",
+        disabled: true,
       },
     ],
   },
   {
     label: "脇石",
+    htmlFor: "rock_type_secondary",
     option: [
       {
         value: "なし",
         name: "なし",
+        disabled: false,
       },
       {
         value: "あり（少なめ）",
         name: "あり（少なめ）",
+        disabled: false,
       },
       {
         value: "あり（多め）",
         name: "あり（多め）",
+        disabled: false,
       },
     ],
   },
   {
     label: "その他",
-    option: [
-      {
-        value: "ゴールド",
-        name: "ゴールド",
-      },
-      {
-        value: "シルバー",
-        name: "シルバー",
-      },
-      {
-        value: "男",
-        name: "男",
-      },
-      {
-        value: "女",
-        name: "女",
-      },
-    ],
+    htmlFor: "other",
+    option: [],
   },
 ];
 
@@ -523,68 +489,10 @@ function Home() {
   const [key, setKey] = useState("0");
   const [screenSize, setScreenSize] = useState("");
   const [page, setPage] = useState(1);
+  const [screenContent, setScreenContent] = useState(null);
+  const [dataImageGenerate, setDataImageGenerate] = useState([]);
 
   const contentRef = useRef(null);
-
-  useEffect(() => {
-    document.title = "Gan Ring Poc - Home";
-  }, []);
-
-  useEffect(() => {
-    const idKey = ["0", "1", "2"];
-    const pagination = document.querySelector(".pagination-custom");
-    setKey(idKey[key]);
-    if (pagination && key != 0) {
-      pagination.classList.add("d-none");
-    } else if (pagination) {
-      pagination.classList.remove("d-none");
-    }
-  }, [key]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      let span, info;
-      if (width >= 1400) {
-        span = 4;
-        info = 2;
-      } else if (width >= 1200) {
-        span = 4;
-        info = 2;
-      } else if (width >= 992) {
-        span = 4;
-        info = 2;
-      } else if (width >= 768) {
-        span = 3;
-        info = 1.5;
-      } else if (width >= 576) {
-        span = 2;
-        info = 1;
-      } else {
-        span = 2;
-        info = 1;
-      }
-
-      setScreenSize({ span, info });
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (screenSize) {
-      const fullWidth = contentRef.current.clientWidth;
-      autoResize(fullWidth, screenSize.span);
-      autoResizeInfo(fullWidth, screenSize.info);
-      const containerTop = document.querySelector(".container-top");
-      if (isMobileDevice()) {
-        containerTop.style.boxSizing = "border-box";
-      } else {
-        containerTop.style.boxSizing = "content-box";
-      }
-    }
-  }, [screenSize]);
 
   const autoResize = (fullWidth, span) => {
     const elementWidth = document.querySelector(".image-grid-item img");
@@ -636,6 +544,86 @@ function Home() {
     );
   };
 
+  const handleGenerateImage = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    try {
+      const response = await AxiosClient.post("/generate-image", payload);
+      const { images } = response.data;
+      if (response.status === 200) {
+        setDataImageGenerate(images);
+      } else {
+        console.error("error");
+      }
+    } catch (error) {
+      console.error("Submit error", error);
+    }
+  };
+
+  useEffect(() => {
+    document.title = "Gan Ring Poc - Home";
+  }, []);
+
+  useEffect(() => {
+    const idKey = ["0", "1", "2"];
+    const pagination = document.querySelector(".pagination-custom");
+    setKey(idKey[key]);
+    if (pagination && key != 0) {
+      pagination.classList.add("d-none");
+    } else if (pagination) {
+      pagination.classList.remove("d-none");
+    }
+  }, [key]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      let span, info;
+      if (width >= 1400) {
+        span = 4;
+        info = 2;
+      } else if (width >= 1200) {
+        span = 4;
+        info = 2;
+      } else if (width >= 992) {
+        span = 4;
+        info = 2;
+      } else if (width >= 768) {
+        span = 3;
+        info = 1.5;
+      } else if (width >= 576) {
+        span = 2;
+        info = 1;
+      } else {
+        span = 2;
+        info = 1;
+      }
+
+      setScreenSize({ span, info });
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    console.log("zo");
+    if (screenSize) {
+      const fullWidth = contentRef.current.clientWidth;
+      setScreenContent(fullWidth / screenSize.span);
+      autoResize(fullWidth, screenSize.span);
+      autoResizeInfo(fullWidth, screenSize.info);
+      const containerTop = document.querySelector(".container-top");
+      if (isMobileDevice()) {
+        containerTop.style.boxSizing = "border-box";
+      } else {
+        containerTop.style.boxSizing = "content-box";
+      }
+    }
+  }, [screenSize]);
+
   const handleOnchangePage = useCallback((page) => {
     setPage(page);
   }, []);
@@ -646,7 +634,10 @@ function Home() {
       <Container fluid="xxl" className="container-top" ref={contentRef}>
         <Tabs id="controlled-tab-example" activeKey={key} className="d-none">
           <Tab eventKey="0" title="Home">
-            <DesignTabContent />
+            <DesignTabContent
+              dataImage={dataImageGenerate}
+              contentScreen={screenContent}
+            />
           </Tab>
           <Tab eventKey="1" title="Profile">
             <UploadTabContent />
@@ -659,9 +650,9 @@ function Home() {
       {/* Bottom section - TAB MENU */}
       <div className="bg-bottom">
         <MyPagination
-          total={dataImage.length}
+          total={dataImageGenerate.length}
           currentPage={page}
-          itemsPerPage={10}
+          itemsPerPage={12}
           onPageChange={handleOnchangePage}
         />
         <Container fluid="xxl">
@@ -677,55 +668,74 @@ function Home() {
                 {/* DESIGN tab content */}
                 <Tab eventKey="0" title="DESIGN" className="custom-nav">
                   {/* Inputs for selected options */}
-                  <Row>
-                    {designOption.length ? (
-                      designOption.map((item, index) => (
-                        <Col md={4} lg={3} className="py-2" key={index}>
-                          <Row>
-                            <Col
-                              xs={2}
-                              md={3}
-                              lg={3}
-                              className="my-auto text-base text-nowrap"
-                            >
-                              <Form.Label className="mb-0" htmlFor="select1">
-                                {item.label}
-                              </Form.Label>
-                            </Col>
-                            <Col xs={10} md={9} lg={9}>
-                              <Form.Select className="custom-input">
-                                <option value="">--</option>
-                                {item.option.map((data) => (
-                                  <option value={data.value} key={data.value}>
-                                    {data.name}
-                                  </option>
-                                ))}
-                              </Form.Select>
-                            </Col>
-                          </Row>
-                        </Col>
-                      ))
-                    ) : (
-                      <>Not Found</>
-                    )}
-                  </Row>
-                  <Row className="mt-4">
-                    <Col lg={12}>
-                      <Form.Group className="input-group input-group-lg">
-                        <Form.Control
-                          type="text"
-                          className="form-control rounded-2 border-0 custom-input-search"
-                          placeholder="Free Word"
-                        />
-                        <Button
-                          type="button"
-                          className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
-                        >
-                          <FaGears className="icon-gear" />
-                        </Button>
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                  <Form
+                    id="generate-form"
+                    className="needs-validation"
+                    onSubmit={handleGenerateImage}
+                  >
+                    <Row>
+                      {designOption.length ? (
+                        designOption.map((item, index) => (
+                          <Col md={4} lg={3} className="py-2" key={index}>
+                            <Row>
+                              <Col
+                                xs={2}
+                                md={3}
+                                lg={3}
+                                className="my-auto text-base text-nowrap"
+                              >
+                                <Form.Label
+                                  className="mb-0"
+                                  htmlFor={item.htmlFor}
+                                >
+                                  {item.label}
+                                </Form.Label>
+                              </Col>
+                              <Col xs={10} md={9} lg={9}>
+                                <Form.Select
+                                  id={item.htmlFor}
+                                  name={item.htmlFor}
+                                  className="custom-input"
+                                >
+                                  <option value="">--</option>
+                                  {item.option.map((data) => (
+                                    <option
+                                      value={data.value}
+                                      key={data.value}
+                                      disabled={data.disabled}
+                                    >
+                                      {data.name}
+                                    </option>
+                                  ))}
+                                </Form.Select>
+                              </Col>
+                            </Row>
+                          </Col>
+                        ))
+                      ) : (
+                        <>Not Found</>
+                      )}
+                    </Row>
+                    <Row className="mt-4">
+                      <Col lg={12}>
+                        <Form.Group className="input-group input-group-lg">
+                          <Form.Control
+                            id="free_text"
+                            name="free_text"
+                            type="text"
+                            className="form-control rounded-2 border-0 custom-input-search"
+                            placeholder="Free Word"
+                          />
+                          <Button
+                            type="submit"
+                            className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
+                          >
+                            <FaGears className="icon-gear" />
+                          </Button>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                  </Form>
                   <Row className="mt-3 color-base text-base">
                     <Col lg={6}>
                       キーワードは、カンマ区切りで複数キーワードを入力できます
