@@ -609,7 +609,6 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("zo");
     if (screenSize) {
       const fullWidth = contentRef.current.clientWidth;
       setScreenContent(fullWidth / screenSize.span);
