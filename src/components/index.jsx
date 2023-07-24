@@ -560,12 +560,11 @@ function Home() {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
       try {
-        const response = await AxiosClient.post("/generate-image", payload);
+        const response = await AxiosClient.post("/generate-image1", payload);
         const { images } = response.data;
         if (response.status === 200) {
           setDataImageGenerate(images);
         } else {
-          setDataImageGenerate([]);
           console.error("error");
         }
       } catch (error) {
