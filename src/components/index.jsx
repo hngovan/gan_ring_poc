@@ -346,6 +346,7 @@ const designOption = [
   {
     label: "分類",
     htmlFor: "classify",
+    require: true,
     option: [
       {
         value: "リング",
@@ -362,6 +363,7 @@ const designOption = [
   {
     label: "デザイン",
     htmlFor: "design",
+    require: true,
     option: [
       {
         value: "四角",
@@ -403,6 +405,7 @@ const designOption = [
   {
     label: "金種",
     htmlFor: "material",
+    require: false,
     option: [
       {
         value: "K18PG",
@@ -419,6 +422,7 @@ const designOption = [
   {
     label: "石名",
     htmlFor: "rock_type",
+    require: false,
     option: [
       {
         value: "石なし",
@@ -460,6 +464,7 @@ const designOption = [
   {
     label: "脇石",
     htmlFor: "rock_type_secondary",
+    require: false,
     option: [
       {
         value: "なし",
@@ -481,6 +486,7 @@ const designOption = [
   {
     label: "その他",
     htmlFor: "other",
+    require: false,
     option: [],
   },
 ];
@@ -491,6 +497,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const [screenContent, setScreenContent] = useState(null);
   const [dataImageGenerate, setDataImageGenerate] = useState([]);
+  const [validated, setValidated] = useState(false);
 
   const contentRef = useRef(null);
 
@@ -547,19 +554,26 @@ function Home() {
   const handleGenerateImage = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-    try {
-      const response = await AxiosClient.post("/generate-image", payload);
-      const { images } = response.data;
-      if (response.status === 200) {
-        setDataImageGenerate(images);
-      } else {
-        console.error("error");
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      try {
+        const response = await AxiosClient.post("/generate-image", payload);
+        const { images } = response.data;
+        if (response.status === 200) {
+          setDataImageGenerate(images);
+        } else {
+          setDataImageGenerate([]);
+          console.error("error");
+        }
+      } catch (error) {
+        console.error("Submit error", error);
       }
-    } catch (error) {
-      console.error("Submit error", error);
     }
+
+    setValidated(true);
   };
 
   useEffect(() => {
@@ -670,6 +684,8 @@ function Home() {
                   <Form
                     id="generate-form"
                     className="needs-validation"
+                    noValidate
+                    validated={validated}
                     onSubmit={handleGenerateImage}
                   >
                     <Row>
@@ -691,10 +707,13 @@ function Home() {
                                 </Form.Label>
                               </Col>
                               <Col xs={10} md={9} lg={9}>
-                                <Form.Select
+                                <Form.Control
                                   id={item.htmlFor}
                                   name={item.htmlFor}
+                                  as="select"
+                                  type="select"
                                   className="custom-input"
+                                  required={item.require}
                                 >
                                   <option value="">--</option>
                                   {item.option.map((data) => (
@@ -706,7 +725,10 @@ function Home() {
                                       {data.name}
                                     </option>
                                   ))}
-                                </Form.Select>
+                                </Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                  このフィールドは必須です。
+                                </Form.Control.Feedback>
                               </Col>
                             </Row>
                           </Col>
