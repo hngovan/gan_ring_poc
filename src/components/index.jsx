@@ -152,7 +152,10 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
               key={index}
               className={`image-grid-item ${
                 expandedImageIndex === index
-                  ? "image-grid-col-2 image-grid-row-2"
+                  ? index === dataImage.length - 1 ||
+                    index === dataImage.length - 2
+                    ? "image-grid-last"
+                    : "image-grid-col-2 image-grid-row-2"
                   : ""
               }`}
               onClick={(event) => expandImage(image, index, event)}
