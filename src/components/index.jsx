@@ -77,6 +77,10 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
     const pagination = document.querySelector(".pagination-custom");
     if (pagination && showDetails.state) {
       pagination.classList.add("d-none");
+    } else {
+      if (pagination !== null) {
+        pagination.classList.remove("d-none");
+      }
     }
   }, [showDetails.state]);
 
@@ -565,7 +569,6 @@ function Home() {
         if (response.status === 200) {
           setDataImageGenerate(images);
         } else {
-          setDataImageGenerate([]);
           console.error("error");
         }
       } catch (error) {
@@ -637,8 +640,9 @@ function Home() {
     }
   }, [screenSize]);
 
-  const handleOnchangePage = useCallback((page) => {
-    setPage(page);
+  const handleOnchangePage = useCallback((pageNumber) => {
+    setPage(pageNumber);
+    // console.log(pageNumber);
   }, []);
 
   return (
