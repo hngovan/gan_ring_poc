@@ -9,6 +9,8 @@ function MyPagination({
   limit = 3,
   between = true,
   ellipsis = "...",
+  first = false,
+  last = false,
 }) {
   const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
@@ -20,6 +22,17 @@ function MyPagination({
     const pages = [];
     let startPage = Math.max(1, currentPage - limit);
     let endPage = Math.min(totalPages, currentPage + limit);
+
+    if (first && currentPage > 1) {
+      pages.push(
+        <Pagination.First
+          key="first"
+          onClick={() => {
+            onPageChange(1);
+          }}
+        />
+      );
+    }
 
     if (currentPage > 1) {
       pages.push(
@@ -70,6 +83,17 @@ function MyPagination({
             onPageChange(currentPage + 1);
           }}
           disabled={currentPage === totalPages}
+        />
+      );
+    }
+
+    if (last && currentPage < totalPages) {
+      pages.push(
+        <Pagination.Last
+          key="last"
+          onClick={() => {
+            onPageChange(totalPages);
+          }}
         />
       );
     }
