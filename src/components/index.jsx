@@ -643,10 +643,9 @@ function Home() {
     }
   }, [screenSize]);
 
-  const handleOnchangePage = useCallback((pageNumber) => {
+  const handleOnchangePage = (pageNumber) => {
     setPage(pageNumber);
-    // console.log(pageNumber);
-  }, []);
+  };
 
   return (
     <>
