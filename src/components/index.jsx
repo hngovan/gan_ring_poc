@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
 import MyPagination from "../components/pagination";
@@ -188,7 +188,8 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
 
 function UploadTabContent() {
   const [isDragOver, setIsDragOver] = useState(false);
-  // const [files, setFiles] = useState([]);
+  const fileInput = useRef(null);
+  const capturePhoto = useRef(null);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -204,13 +205,11 @@ function UploadTabContent() {
     event.preventDefault();
     setIsDragOver(false);
     const newFiles = Array.from(event.dataTransfer.files);
-    // setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     handleFiles(newFiles);
   };
 
   const handleInputChange = (event) => {
     const newFiles = Array.from(event.target.files);
-    // setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     handleFiles(newFiles);
   };
 
@@ -228,6 +227,10 @@ function UploadTabContent() {
     imageElement.remove();
     imageContainer.classList.add("d-none");
     uploadBox.classList.remove("d-none");
+    if (fileInput.current && capturePhoto.current) {
+      fileInput.current.value = null;
+      capturePhoto.current.value = null;
+    }
   };
 
   // Handle uploaded files
@@ -274,19 +277,19 @@ function UploadTabContent() {
               <p className="d-none d-lg-block">アップロード</p>
               <p className="fs-4 d-none d-lg-block">または</p>
               <input
+                ref={fileInput}
                 id="fileInput"
                 type="file"
                 accept="image/*"
-                multiple
                 className="d-none"
                 onChange={(e) => handleInputChange(e)}
               />
               <input
+                ref={capturePhoto}
                 id="capturePhoto"
                 type="file"
                 accept="image/*"
                 capture
-                multiple
                 className="d-none"
                 onChange={(e) => handleCapturePhotoChange(e)}
               />
@@ -671,8 +674,10 @@ function Home() {
         <MyPagination
           total={dataImageGenerate.length}
           currentPage={page}
-          itemsPerPage={12}
+          itemsPerPage={2}
           onPageChange={handleOnchangePage}
+          first
+          last
         />
         <Container fluid="xxl">
           <Row>
