@@ -3,15 +3,15 @@ import Pagination from "react-bootstrap/Pagination";
 import PropTypes from "prop-types";
 
 function MyPagination({
-  total = 0,
-  currentPage = 1,
-  itemsPerPage = 10,
+  total,
+  currentPage,
+  itemsPerPage,
   onPageChange = () => {},
-  limit = 3,
-  between = true,
-  ellipsis = "...",
-  first = false,
-  last = false,
+  limit,
+  between,
+  ellipsis,
+  first,
+  last,
 }) {
   const [totalPages, setTotalPages] = useState(0);
 
@@ -123,6 +123,14 @@ function MyPagination({
     <Pagination bsPrefix="pagination-custom">{paginationItems}</Pagination>
   );
 }
+
+MyPagination.defaultProps = {
+  limit: 3,
+  between: true,
+  ellipsis: "...",
+  first: false,
+  last: false,
+};
 
 MyPagination.propTypes = {
   total: PropTypes.number.isRequired,
