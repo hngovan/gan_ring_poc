@@ -77,6 +77,10 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
     const pagination = document.querySelector(".pagination-custom");
     if (pagination && showDetails.state) {
       pagination.classList.add("d-none");
+    } else {
+      if (pagination !== null) {
+        pagination.classList.remove("d-none");
+      }
     }
   }, [showDetails.state]);
 
@@ -560,7 +564,7 @@ function Home() {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
       try {
-        const response = await AxiosClient.post("/generate-image1", payload);
+        const response = await AxiosClient.post("/generate-image", payload);
         const { images } = response.data;
         if (response.status === 200) {
           setDataImageGenerate(images);
@@ -636,8 +640,9 @@ function Home() {
     }
   }, [screenSize]);
 
-  const handleOnchangePage = useCallback((page) => {
-    setPage(page);
+  const handleOnchangePage = useCallback((pageNumber) => {
+    setPage(pageNumber);
+    // console.log(pageNumber);
   }, []);
 
   return (
