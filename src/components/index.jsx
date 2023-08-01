@@ -3,7 +3,8 @@ import { Container, Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import { FaGears, FaXmark } from "react-icons/fa6";
 import MyPagination from "../components/pagination";
 import Zoom from "../components/ZoomImage";
-import AxiosClient from "../utils/axios";
+import client from "../utils/axios";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types
 function DesignTabContent({ dataImage = [], contentScreen }) {
@@ -570,14 +571,15 @@ function Home() {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
       try {
-        const response = await AxiosClient.post("/generate-image", payload);
-        const { images } = response.data;
-        if (response.status === 200) {
+        const response = await client.post("/generate-image", payload);
+        const { success, images } = response;
+        if (success) {
           setDataImageGenerate(images);
         } else {
           console.error("error");
         }
       } catch (error) {
+        toast.error(error.message);
         console.error("Submit error", error);
       }
     }
