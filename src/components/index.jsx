@@ -266,7 +266,7 @@ function UploadTabContent() {
         <div className="upload-box">
           <div
             id="fileDropArea"
-            className={`upload-box-dashed d-flex flex-column justify-content-center align-items-center position-relative fs-3 
+            className={`upload-box-dashed d-flex flex-column justify-content-center align-items-center position-relative fs-3
             ${isDragOver ? "is-dragover" : ""}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -674,10 +674,8 @@ function Home() {
         <MyPagination
           total={dataImageGenerate.length}
           currentPage={page}
-          itemsPerPage={2}
+          itemsPerPage={12}
           onPageChange={handleOnchangePage}
-          first
-          last
         />
         <Container fluid="xxl">
           <Row>

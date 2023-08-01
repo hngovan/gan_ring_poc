@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useMemo } from "react";
+import { useEffect, useCallback, useState, useMemo } from "react";
 import Pagination from "react-bootstrap/Pagination";
 import PropTypes from "prop-types";
 
@@ -115,7 +115,17 @@ function MyPagination({
     }
 
     return pages;
-  }, [totalPages, currentPage, onPageChangeHandler, limit, between, ellipsis]);
+  }, [
+    total,
+    itemsPerPage,
+    currentPage,
+    limit,
+    first,
+    between,
+    last,
+    onPageChangeHandler,
+    ellipsis,
+  ]);
 
   if (totalPages === 0) return null;
 
