@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ADMIN_AUTH_TOKEN_KEY } from "../constants/authentication";
 import AxiosClient from "../utils/axios";
+import { toast } from "react-toastify";
 
 function Login() {
   const [validated, setValidated] = useState(false);
@@ -27,17 +28,19 @@ function Login() {
       const payload = Object.fromEntries(formData.entries());
       try {
         const response = await AxiosClient.post("/login", payload);
-        const { message, token } = response.data;
-        if (response.status === 201) {
+        const { success, message, token } = response;
+        if (success) {
           localStorage.setItem(ADMIN_AUTH_TOKEN_KEY, token);
           setShow(false);
           navigate("/");
-        }
-        if (response.status === 200) {
+          toast.success("ログイン成功");
+        } else {
           setShow(true);
           setMessageError(message);
         }
       } catch (error) {
+        setShow(true);
+        setMessageError(error.message);
         console.error("Submit error", error);
       }
     }
