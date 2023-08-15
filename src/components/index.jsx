@@ -176,11 +176,11 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
             </div>
           ))
         ) : (
-          <React.Fragment>
+          <>
             {[...Array(12)].map((_, index) => (
               <div key={index} className="image-grid-item bg-transparent"></div>
             ))}
-          </React.Fragment>
+          </>
         )}
       </div>
     </>
@@ -360,15 +360,15 @@ const designOption = [
     require: true,
     option: [
       {
-        value: "リング",
+        value: "ring",
         name: "リング",
         disabled: false,
       },
-      {
-        value: "ネックレス",
-        name: "ネックレス",
-        disabled: false,
-      },
+      // {
+      //   value: "ネックレス",
+      //   name: "ネックレス",
+      //   disabled: false,
+      // },
     ],
   },
   {
@@ -377,40 +377,30 @@ const designOption = [
     require: true,
     option: [
       {
-        value: "四角",
+        value: "oval",
+        name: "オーバル",
+        disabled: false,
+      },
+      {
+        value: "square",
         name: "四角",
         disabled: false,
       },
       {
-        value: "丸",
+        value: "pearl",
+        name: "パール",
+        disabled: false,
+      },
+      {
+        value: "pear",
+        name: "ペア",
+        disabled: false,
+      },
+      {
+        value: "round",
         name: "丸",
         disabled: false,
-      },
-      {
-        value: "三角",
-        name: "三角",
-        disabled: false,
-      },
-      {
-        value: "六角",
-        name: "六角",
-        disabled: false,
-      },
-      {
-        value: "ハート",
-        name: "ハート",
-        disabled: false,
-      },
-      {
-        value: "梨",
-        name: "梨",
-        disabled: false,
-      },
-      {
-        value: "楕円",
-        name: "楕円",
-        disabled: false,
-      },
+      }
     ],
   },
   {
@@ -419,12 +409,12 @@ const designOption = [
     require: false,
     option: [
       {
-        value: "K18PG",
+        value: "gold",
         name: "K18PG",
         disabled: false,
       },
       {
-        value: "PT900",
+        value: "platinum",
         name: "PT900",
         disabled: false,
       },
@@ -436,39 +426,39 @@ const designOption = [
     require: false,
     option: [
       {
-        value: "石なし",
-        name: "石なし",
-        disabled: false,
-      },
-      {
-        value: "パール",
-        name: "パール",
-        disabled: false,
-      },
-      {
-        value: "ダイヤモンド",
-        name: "ダイヤモンド",
-        disabled: false,
-      },
-      {
-        value: "ルビー",
+        value: "ruby",
         name: "ルビー",
-        disabled: true,
+        disabled: false,
       },
       {
-        value: "ムーン",
-        name: "ムーン",
-        disabled: true,
-      },
-      {
-        value: "ガーナット",
-        name: "ガーナット",
-        disabled: true,
-      },
-      {
-        value: "エメラルド",
+        value: "emerald",
         name: "エメラルド",
-        disabled: true,
+        disabled: false,
+      },
+      {
+        value: "sapphire",
+        name: "サファイア",
+        disabled: false,
+      },
+      {
+        value: "amethyst",
+        name: "アメジスト",
+        disabled: false,
+      },
+      {
+        value: "citrine",
+        name: "シトリン",
+        disabled: false,
+      },
+      {
+        value: "opal",
+        name: "オパール",
+        disabled: false,
+      },
+      {
+        value: "black",
+        name: "ブラック",
+        disabled: false,
       },
     ],
   },
@@ -784,7 +774,7 @@ function Home() {
                       <div className="text-left fs-sm-5">
                         デザイン画像アップロードの注意事項
                       </div>
-                      <Row className="mt-3">
+                      <Row className="mt-3 ms-0">
                         <Col lg={12} className="px-0">
                           <ul id="file-list">
                             <li className="text-base">
