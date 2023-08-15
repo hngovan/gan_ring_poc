@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
     auth.token = true;
   }
 
-  return auth.token ? <Home /> : <Navigate to="/login" />;
+  return auth.token ? <Home /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoutes;
