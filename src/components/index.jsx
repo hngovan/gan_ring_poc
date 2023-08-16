@@ -5,9 +5,10 @@ import MyPagination from "../components/pagination";
 import Zoom from "../components/ZoomImage";
 import client from "../utils/axios";
 import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 
 // eslint-disable-next-line react/prop-types
-function DesignTabContent({ dataImage = [], contentScreen }) {
+function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
   const [expandedImageIndex, setExpandedImageIndex] = useState(null);
   const [showDetails, setShowDetails] = useState({
     image: null,
@@ -87,7 +88,12 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
 
   return (
     <>
-      {/* {showDetails.state ? ( */}
+      {loading && (
+        <div className="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+          <Spinner animation="border" />
+          <div className="mt-4">データをロードしています。お待ちください。</div>
+        </div>
+      )}
       <div
         className={`row h-100 ${showDetails.state ? "d-block" : "d-none"}`}
         onClick={handleImageClose}
@@ -144,10 +150,12 @@ function DesignTabContent({ dataImage = [], contentScreen }) {
         </div>
       </div>
       <div
-        className={`image-grid ${!showDetails.state ? "visible" : "d-none"}`}
+        className={`image-grid ${
+          !showDetails.state && !loading ? "visible" : "d-none"
+        }`}
       >
         {/* Image grid items */}
-        {dataImage.length > 0 ? (
+        {dataImage.length > 0 && !loading ? (
           dataImage.map((image, index) => (
             <div
               key={index}
@@ -400,7 +408,7 @@ const designOption = [
         value: "round",
         name: "丸",
         disabled: false,
-      }
+      },
     ],
   },
   {
@@ -470,17 +478,17 @@ const designOption = [
       {
         value: "なし",
         name: "なし",
-        disabled: false,
+        disabled: true,
       },
       {
         value: "あり（少なめ）",
         name: "あり（少なめ）",
-        disabled: false,
+        disabled: true,
       },
       {
         value: "あり（多め）",
         name: "あり（多め）",
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -499,6 +507,7 @@ function Home() {
   const [screenContent, setScreenContent] = useState(null);
   const [dataImageGenerate, setDataImageGenerate] = useState([]);
   const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const contentRef = useRef(null);
 
@@ -558,6 +567,7 @@ function Home() {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
+      setLoading(true);
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
       try {
@@ -571,6 +581,11 @@ function Home() {
       } catch (error) {
         toast.error(error.message);
         console.error("Submit error", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+          toast.success("画像が正常に生成されました");
+        }, 10000);
       }
     }
 
@@ -584,8 +599,10 @@ function Home() {
   useEffect(() => {
     const idKey = ["0", "1", "2"];
     const pagination = document.querySelector(".pagination-custom");
+    const imageGrid = document.querySelector(".image-grid");
     setKey(idKey[key]);
-    if (pagination && key != 0) {
+    console.log(imageGrid.className.includes("d-none"));
+    if ((pagination && key != 0) || imageGrid.className.includes("d-none")) {
       pagination.classList.add("d-none");
     } else if (pagination) {
       pagination.classList.remove("d-none");
@@ -651,6 +668,7 @@ function Home() {
             <DesignTabContent
               dataImage={dataImageGenerate}
               contentScreen={screenContent}
+              loading={loading}
             />
           </Tab>
           <Tab eventKey="1" title="Profile">
@@ -663,12 +681,14 @@ function Home() {
       </Container>
       {/* Bottom section - TAB MENU */}
       <div className="bg-bottom">
-        <MyPagination
-          total={dataImageGenerate.length}
-          currentPage={page}
-          itemsPerPage={12}
-          onPageChange={handleOnchangePage}
-        />
+        {!loading && (
+          <MyPagination
+            total={dataImageGenerate.length}
+            currentPage={page}
+            itemsPerPage={12}
+            onPageChange={handleOnchangePage}
+          />
+        )}
         <Container fluid="xxl">
           <Row>
             <Col lg={12} className="px-0">
