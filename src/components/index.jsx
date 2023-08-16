@@ -8,7 +8,64 @@ import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 
 // eslint-disable-next-line react/prop-types
-function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
+let dataShowDetails = [
+  {
+    label: "分類",
+    key: "classify",
+    value: "--",
+  },
+  {
+    label: "デザイン",
+    key: "design",
+    value: "--",
+  },
+  {
+    label: "金種",
+    key: "material",
+    value: "--",
+  },
+  {
+    label: "石名",
+    key: "rock_type",
+    value: "--",
+  },
+  {
+    label: "脇石",
+    key: "rock_type_secondary",
+    value: "--",
+  },
+  {
+    label: "その他",
+    key: "other",
+    value: "--",
+  },
+  {
+    label: "フリーワード",
+    key: "free_text",
+    value: "--",
+  },
+];
+
+const menuConstants = {
+  ring: "リング",
+  oval: "オーバル",
+  square: "四角",
+  pearl: "パール",
+  pear: "ペア",
+  round: "丸",
+  gold: "K18PG",
+  platinum: "PT900",
+  ruby: "ルビー",
+  emerald: "エメラルド",
+  sapphire: "サファイア",
+  amethyst: "アメジスト",
+  citrine: "シトリン",
+  opal: "オパール",
+  black: "ブラック",
+};
+
+// eslint-disable-next-line react/prop-types
+function DesignTabContent({ dataImage = [], dataDetail, contentScreen, loading = false}) {
   const [expandedImageIndex, setExpandedImageIndex] = useState(null);
   const [showDetails, setShowDetails] = useState({
     image: null,
@@ -16,6 +73,7 @@ function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
     width: null,
     height: null,
   });
+  const [updatedDetails, setUpdatedDetails] = useState(dataShowDetails);
 
   const expandImage = (image, index, event) => {
     setExpandedImageIndex(index);
@@ -31,37 +89,6 @@ function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
       }));
     }
   };
-
-  const dataShowDetails = [
-    {
-      label: "分類",
-      value: "リング",
-    },
-    {
-      label: "デザイン",
-      value: "ハート",
-    },
-    {
-      label: "金種",
-      value: "K18PG",
-    },
-    {
-      label: "石名",
-      value: "ダイヤモンド",
-    },
-    {
-      label: "脇石",
-      value: "あり（多め）",
-    },
-    {
-      label: "その他",
-      value: "--",
-    },
-    {
-      label: "フリーワード",
-      value: "--",
-    },
-  ];
 
   const handleImageClose = () => {
     setExpandedImageIndex(null);
@@ -85,6 +112,26 @@ function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
       }
     }
   }, [showDetails.state]);
+
+  useEffect(() => {
+    if (dataDetail) {
+      const updatedDataShowDetails = dataShowDetails.map((item) => {
+        const updatedValue = dataDetail[item.key]
+          ? menuConstants[dataDetail[item.key]]
+          : "--";
+        return {
+          ...item,
+          value: updatedValue,
+        };
+      });
+      setExpandedImageIndex(null);
+      setShowDetails((prevState) => ({
+        ...prevState,
+        state: false,
+      }));
+      setUpdatedDetails(updatedDataShowDetails);
+    }
+  }, [dataDetail]);
 
   return (
     <>
@@ -116,16 +163,14 @@ function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
                 <div className="col-12 border-0">デザインソース</div>
               </div>
             </div>
-            {dataShowDetails.length > 0 ? (
-              dataShowDetails.map((item, index) => (
+            {updatedDetails.length > 0 ? (
+              updatedDetails.map((item, index) => (
                 <div className="col-md-6 col-lg-4" key={index}>
                   <div className="row image-info">
                     <div
                       className={
                         "col-4 col-md-6" +
-                        (index === dataShowDetails.length - 1
-                          ? " border-0"
-                          : "")
+                        (index === updatedDetails.length - 1 ? " border-0" : "")
                       }
                     >
                       {item.label}
@@ -133,9 +178,7 @@ function DesignTabContent({ dataImage = [], contentScreen, loading = false }) {
                     <div
                       className={
                         "col-8 col-md-6" +
-                        (index === dataShowDetails.length - 1
-                          ? " border-0"
-                          : "")
+                        (index === updatedDetails.length - 1 ? " border-0" : "")
                       }
                     >
                       {item.value}
@@ -508,6 +551,7 @@ function Home() {
   const [dataImageGenerate, setDataImageGenerate] = useState([]);
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [dataDetail, setDataDetail] = useState(null);
 
   const contentRef = useRef(null);
 
@@ -570,6 +614,7 @@ function Home() {
       setLoading(true);
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
+      setDataDetail(payload);
       try {
         const response = await client.post("/generate-image", payload);
         const { success, images } = response;
@@ -664,6 +709,7 @@ function Home() {
           <Tab eventKey="0" title="Home">
             <DesignTabContent
               dataImage={dataImageGenerate}
+              dataDetail={dataDetail}
               contentScreen={screenContent}
               loading={loading}
             />
