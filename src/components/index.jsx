@@ -578,7 +578,8 @@ function Home() {
           setLoading(false);
           toast.success("画像が正常に生成されました");
         } else {
-          console.error("error");
+          setLoading(false);
+          toast.error("Sever Errors");
         }
       } catch (error) {
         toast.error(error.message);
