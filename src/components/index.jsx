@@ -423,7 +423,7 @@ const designOption = [
     ],
   },
   {
-    label: "デザイン",
+    label: "形状",
     htmlFor: "design",
     require: true,
     option: [
@@ -434,7 +434,7 @@ const designOption = [
       },
       {
         value: "square",
-        name: "四角",
+        name: "スクエア",
         disabled: false,
       },
       {
@@ -444,12 +444,12 @@ const designOption = [
       },
       {
         value: "pear",
-        name: "ペア",
+        name: "ペアシェイプ",
         disabled: false,
       },
       {
         value: "round",
-        name: "丸",
+        name: "ラウンド",
         disabled: false,
       },
     ],
@@ -478,7 +478,7 @@ const designOption = [
     option: [
       {
         value: "ruby",
-        name: "ルビー",
+        name: "ダイヤモンド",
         disabled: false,
       },
       {
@@ -488,27 +488,22 @@ const designOption = [
       },
       {
         value: "sapphire",
-        name: "サファイア",
+        name: "ルビー",
         disabled: false,
       },
       {
         value: "amethyst",
-        name: "アメジスト",
+        name: "サファイヤ",
         disabled: false,
       },
       {
         value: "citrine",
-        name: "シトリン",
+        name: "パール",
         disabled: false,
       },
       {
         value: "opal",
         name: "オパール",
-        disabled: false,
-      },
-      {
-        value: "black",
-        name: "ブラック",
         disabled: false,
       },
     ],
