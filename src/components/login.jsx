@@ -53,7 +53,7 @@ function Login() {
       <Row className="h-100 justify-content-center align-items-center">
         <Col lg={6}>
           <div className="form-container">
-            {show ? (
+            {show ?? (
               <Alert
                 variant="danger"
                 onClose={() => setShow(false)}
@@ -61,8 +61,6 @@ function Login() {
               >
                 {messageError}
               </Alert>
-            ) : (
-              <></>
             )}
             <Form
               id="login-form"
@@ -91,6 +89,7 @@ function Login() {
                   className="custom-input"
                   id="user_name"
                   name="user_name"
+                  autoComplete="username"
                   required
                 />
                 <Form.Control.Feedback type="invalid">
@@ -104,6 +103,7 @@ function Login() {
                   className="custom-input"
                   id="password"
                   name="password"
+                  autoComplete="current-password"
                   required
                 />
                 <Form.Control.Feedback type="invalid">
