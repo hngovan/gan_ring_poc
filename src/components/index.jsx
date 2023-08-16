@@ -414,7 +414,7 @@ const designOption = [
   {
     label: "金種",
     htmlFor: "material",
-    require: false,
+    require: true,
     option: [
       {
         value: "gold",
@@ -431,7 +431,7 @@ const designOption = [
   {
     label: "石名",
     htmlFor: "rock_type",
-    require: false,
+    require: true,
     option: [
       {
         value: "ruby",
