@@ -79,6 +79,10 @@ body {
   border-color: var(--color-gray);
 }
 
+.gradient-button.btn:disabled {
+  border-color: var(--color-gray);
+}
+
 .custom-link {
   color: var(--color-gray);
 }
@@ -440,7 +444,7 @@ body {
   padding: 20px 30px 0 30px;
 }
 
-.image-info>div {
+.image-info > div {
   border-bottom: 1px solid #d4d4de;
   padding-bottom: 20px;
 }
@@ -453,7 +457,7 @@ body {
   height: 100%;
 }
 
-.container-top .tab-content>.active {
+.container-top .tab-content > .active {
   height: 100%;
 }
 

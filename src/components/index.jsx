@@ -575,17 +575,14 @@ function Home() {
         const { success, images } = response;
         if (success) {
           setDataImageGenerate(images);
+          setLoading(false);
+          toast.success("画像が正常に生成されました");
         } else {
           console.error("error");
         }
       } catch (error) {
         toast.error(error.message);
         console.error("Submit error", error);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-          toast.success("画像が正常に生成されました");
-        }, 10000);
       }
     }
 
@@ -601,7 +598,6 @@ function Home() {
     const pagination = document.querySelector(".pagination-custom");
     const imageGrid = document.querySelector(".image-grid");
     setKey(idKey[key]);
-    console.log(imageGrid.className.includes("d-none"));
     if ((pagination && key != 0) || imageGrid.className.includes("d-none")) {
       pagination.classList.add("d-none");
     } else if (pagination) {
@@ -771,6 +767,7 @@ function Home() {
                           <Button
                             type="submit"
                             className="btn gradient-button ms-2 ms-lg-3 rounded-2 px-lg-5 fs-5 d-flex justify-content-center align-items-center"
+                            disabled={loading}
                           >
                             <FaGears className="icon-gear" />
                           </Button>
