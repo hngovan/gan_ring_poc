@@ -165,7 +165,7 @@ function DesignTabContent({ dataImage = [], dataDetail, contentScreen, loading =
             </div>
             {updatedDetails.length > 0 ? (
               updatedDetails.map((item, index) => (
-                <div className="col-md-6 col-lg-4" key={index}>
+                <div className="col-md-6 col-lg-6" key={index}>
                   <div className="row image-info">
                     <div
                       className={
@@ -587,8 +587,6 @@ function Home() {
 
   const autoResizeInfo = (fullScreen, expand) => {
     const maxShow = fullScreen / expand;
-    console.log(expand);
-    console.log(maxShow);
     const boxUpload = document.querySelector(".image-box .image-card");
     if (boxUpload) {
       boxUpload.style.height = maxShow + "px";
@@ -701,7 +699,12 @@ function Home() {
   return (
     <>
       {/* Top section - DESIGN or UPLOAD or MENU */}
-      <Container fluid="xxl" className="container-top" ref={contentRef}>
+      <Container
+        fluid="lg"
+        style={{ maxWidth: "857px" }}
+        className="container-top"
+        ref={contentRef}
+      >
         <Tabs id="controlled-tab-example" activeKey={key} className="d-none">
           <Tab eventKey="0" title="Home">
             <DesignTabContent
@@ -729,7 +732,7 @@ function Home() {
             onPageChange={handleOnchangePage}
           />
         )}
-        <Container fluid="xxl">
+        <Container fluid="lg" style={{ maxWidth: "857px" }}>
           <Row>
             <Col lg={12} className="px-0">
               <Tabs
@@ -752,7 +755,7 @@ function Home() {
                     <Row>
                       {designOption.length ? (
                         designOption.map((item, index) => (
-                          <Col md={4} lg={3} className="py-2" key={index}>
+                          <Col md={4} lg={4} className="py-2" key={index}>
                             <Row>
                               <Col
                                 xs={2}
