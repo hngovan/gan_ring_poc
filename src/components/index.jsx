@@ -53,8 +53,8 @@ const menuConstants = {
   pearl: "パール",
   pear: "ペア",
   round: "丸",
-  gold: "K18PG",
-  platinum: "PT900",
+  gold: "K18",
+  platinum: "Pt900",
   ruby: "ルビー",
   emerald: "エメラルド",
   sapphire: "サファイア",
@@ -461,12 +461,12 @@ const designOption = [
     option: [
       {
         value: "gold",
-        name: "K18PG",
+        name: "K18",
         disabled: false,
       },
       {
         value: "platinum",
-        name: "PT900",
+        name: "Pt900",
         disabled: false,
       },
     ],
