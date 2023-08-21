@@ -510,6 +510,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  .container-resize {
+    max-width: calc(100vh - 57px);
+  }
+
   .container-top {
     overflow-y: auto;
     border: 1px solid #606166;
@@ -571,6 +575,10 @@ body {
 }
 
 @media (min-width: 992px) {
+  .container-resize {
+    max-width: calc(100vh - 64px);
+  }
+
   .tab-content-top {
     min-height: calc(640px - 2px);
     height: 100%;

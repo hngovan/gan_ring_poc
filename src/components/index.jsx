@@ -701,8 +701,7 @@ function Home() {
       {/* Top section - DESIGN or UPLOAD or MENU */}
       <Container
         fluid="lg"
-        style={{ maxWidth: "857px" }}
-        className="container-top"
+        className="container-top container-resize"
         ref={contentRef}
       >
         <Tabs id="controlled-tab-example" activeKey={key} className="d-none">
@@ -732,7 +731,7 @@ function Home() {
             onPageChange={handleOnchangePage}
           />
         )}
-        <Container fluid="lg" style={{ maxWidth: "857px" }}>
+        <Container fluid="lg" className="container-resize">
           <Row>
             <Col lg={12} className="px-0">
               <Tabs
