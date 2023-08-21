@@ -148,7 +148,7 @@ function DesignTabContent({ dataImage = [], dataDetail, contentScreen, loading =
         <div className="image-box">
           <div
             className="image-card"
-            style={{ width: showDetails.width, height: showDetails.height }}
+            // style={{ width: showDetails.width, height: showDetails.height }}
           >
             <img
               src={showDetails.image}
@@ -228,7 +228,7 @@ function DesignTabContent({ dataImage = [], dataDetail, contentScreen, loading =
           ))
         ) : (
           <>
-            {[...Array(12)].map((_, index) => (
+            {[...Array(4)].map((_, index) => (
               <div key={index} className="image-grid-item bg-transparent"></div>
             ))}
           </>
@@ -563,12 +563,12 @@ function Home() {
         item.style.height = maxScreen + "px";
       });
 
-      containerTop.style.minHeight = `${maxScreen * 3}px`;
-      containerTop.style.maxHeight = `${maxScreen * 3}px`;
-      containerTop.style.height = `${maxScreen * 3}px`;
+      containerTop.style.minHeight = `${maxScreen * 2}px`;
+      containerTop.style.maxHeight = `${maxScreen * 2}px`;
+      containerTop.style.height = `${maxScreen * 2}px`;
       // if (!isMobileDevice()) {
       const uploadBox = document.querySelector(".upload-box");
-      uploadBox.style.height = `${maxScreen * 3}px`;
+      uploadBox.style.height = `${maxScreen * 2}px`;
       // }
     } else {
       imageGridItems.forEach((item) => {
@@ -576,17 +576,19 @@ function Home() {
         item.style.width = `${maxScreen}px`;
       });
 
-      containerTop.style.minHeight = `${maxScreen * 3}px`;
-      containerTop.style.maxHeight = `${maxScreen * 3}px`;
-      containerTop.style.height = `${maxScreen * 3}px`;
+      containerTop.style.minHeight = `${maxScreen * 2}px`;
+      containerTop.style.maxHeight = `${maxScreen * 2}px`;
+      containerTop.style.height = `${maxScreen * 2}px`;
 
       const uploadBox = document.querySelector(".upload-box");
-      uploadBox.style.height = `${maxScreen * 3}px`;
+      uploadBox.style.height = `${maxScreen * 2}px`;
     }
   };
 
   const autoResizeInfo = (fullScreen, expand) => {
     const maxShow = fullScreen / expand;
+    console.log(expand);
+    console.log(maxShow);
     const boxUpload = document.querySelector(".image-box .image-card");
     if (boxUpload) {
       boxUpload.style.height = maxShow + "px";
@@ -651,16 +653,16 @@ function Home() {
       const width = window.innerWidth;
       let span, info;
       if (width >= 1400) {
-        span = 4;
+        span = 2;
         info = 2;
       } else if (width >= 1200) {
-        span = 4;
+        span = 2;
         info = 2;
       } else if (width >= 992) {
-        span = 4;
+        span = 2;
         info = 2;
       } else if (width >= 768) {
-        span = 3;
+        span = 2;
         info = 1.5;
       } else if (width >= 576) {
         span = 2;
